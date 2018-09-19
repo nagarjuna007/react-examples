@@ -4,7 +4,7 @@ import './Api.css';
 class Api extends Component {
   render() {
     return (
-      <section>
+      <section> 
         <h3>Web API Calls</h3>
         <table class="table table-striped table-bordered table-sm">
           <thead class="thead-dark">
