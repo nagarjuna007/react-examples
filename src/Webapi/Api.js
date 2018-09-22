@@ -6,8 +6,8 @@ class Api extends Component {
     return (
       <section> 
         <h3>Web API Calls</h3>
-        <table class="table table-striped table-bordered table-sm">
-          <thead class="thead-dark">
+        <table className="table table-striped table-bordered table-sm">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">#</th>
               <th scope="col">FirstName</th>
