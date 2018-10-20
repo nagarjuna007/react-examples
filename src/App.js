@@ -5,6 +5,7 @@ import './App.css';
 import Api from './Webapi/Api';
 import List from './Components/List';
 import ListData from './PersonData/ListData';
+import Lifecycle from './Lifecycle/Lifecycle';
 
 class App extends Component {
   render() {
@@ -22,12 +23,16 @@ class App extends Component {
               <li className="list-inline-item">
                 <Link to="/listData">List Data</Link>
               </li>
+              <li className="list-inline-item">
+                <Link to="/lifecycle">Life Cycle</Link>
+              </li>
             </ul>
 
             <hr />
            <Route exact path="/api" component={Api} />
            <Route exact path="/list" component={List} />
            <Route exact path="/listData" component={ListData} />
+           <Route exact path="/lifecycle" component={Lifecycle} />
           </div>
         </Router>
       </div>

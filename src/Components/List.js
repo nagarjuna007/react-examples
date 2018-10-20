@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './List.css';
-import Person from '../Person/Person';
+import Radium from 'radium';
+import PersonsList from './Persons';
+import Cockpit from './Cockpit';
 
 class List extends Component {
   state = {
@@ -30,7 +32,6 @@ class List extends Component {
     const Person = {
       ...this.state.Persons[personIndex]
     };
-    //const Person = Object.assign({}, this.state.Persons[personIndex]);
     Person.name = event.target.value;
     const Persons = [...this.state.Persons];
     Persons[personIndex] = Person;
@@ -41,48 +42,29 @@ class List extends Component {
     this.setState({ showPersons: !doesShow });
   }
   deletePersonHandler = (personIndex) => {
-    //const Persons=this.state.Persons;
-    //const Persons=this.state.Persons.slice();
     const Persons = [...this.state.Persons];
     Persons.splice(personIndex, 1);
     this.setState({ Persons: Persons });
   }
   render() {
-    const style = {
-      backgroundColor: '#F00'
-    }
+
     let Persons = null;
     if (this.state.showPersons) {
-      Persons = (
-        <div>
-          {this.state.Persons.map((Persons, index) => {
-            return <Person name={Persons.name} age={Persons.age}
-              click={() => this.deletePersonHandler(index)}
-              key={Persons.id}
-              changed={(event) => this.nameChangedHandler(event, Persons.id)}
-            />
-          })}
-        </div>
-      )
+      Persons = <PersonsList
+        Persons={this.state.Persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedHandler}
+      />
     }
+
     return (
       <section>
-        <h3>React Examples</h3>
-        <button type="button" style={style} className="btn btn-primary" onClick={this.togglePersonsHandler}>Swith Name</button>
-        {Persons}
-        {/*{
-          this.state.showPersons === true ?
-            <div>
-              <Person name={this.state.Persons[0].name} age={this.state.Persons[0].age} />
-              <Person name={this.state.Persons[1].name} age={this.state.Persons[1].age} />
-              <Person changed={this.nameChangedHandler} name={this.state.Persons[2].name} age={this.state.Persons[2].age} />
-              <Person name={this.state.Persons[3].name}
-                age={this.state.Persons[3].age}
-                click={this.switchNameHandler.bind(this, 'Nagarjuna Tamarada')}
-              >My Hobbies: Racing</Person>
-            </div> : null 
-            <p>No Data Found..</p>
-        }*/}
+       
+        <Cockpit
+          showPersons={this.state.showPersons}
+          Persons={this.state.Persons}
+          clicked={this.togglePersonsHandler} />
+        <div>{Persons}</div>
       </section>
     );
   }
