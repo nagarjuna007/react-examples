@@ -5,23 +5,30 @@ class FullPost extends Component {
   state = {
     loadedPost: null
   }
+  componentDidMount() {
+    console.log(this.props);
+    this.loadData();
+  }
   componentDidUpdate() {
-    if (this.props.id) {
-      if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-        axios.get('/posts/' + this.props.id).then(response => {
+    this.loadData();
+  }
+  loadData() {
+    if (this.props.match.params.id) {
+      if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id != this.props.match.params.id)) {
+        axios.get('/posts/' + this.props.match.params.id).then(response => {
           this.setState({ loadedPost: response.data });
         });
       }
     }
   }
-  deletePostHandler = () => {    
-    axios.delete('/posts/' + this.props.id).then(response => {
+  deletePostHandler = () => {
+    axios.delete('/posts/' + this.props.match.params.id).then(response => {
       console.log(response);
     });
   }
   render() {
     let post = <div className="my-3 bg-white p-2 text-danger">Please select a Post!</div>;
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       post = <div className="my-3 bg-white p-2 text-danger">Loading..!!</div>;
     }
     if (this.state.loadedPost) {
