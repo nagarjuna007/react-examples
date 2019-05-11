@@ -1,27 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import BuildControl from './BuildControl';
-import './BuildControl.css';
 
 const controls = [
-  { label: 'salad', type: 'salad' },
-  { label: 'bacon', type: 'bacon' },
-  { label: 'cheese', type: 'cheese' },
-  { label: 'meat', type: 'meat' }
-]
+    { label: 'Salad', type: 'salad' },
+    { label: 'Bacon', type: 'bacon' },
+    { label: 'Cheese', type: 'cheese' },
+    { label: 'Meat', type: 'meat' },
+];
 
 const buildControls = (props) => (
-  <div className="BuildControls">
-    <p>Current Price: {props.price.toFixed(2)}</p>
-    {controls.map(ctrl => (
-      <BuildControl
-        added={() => props.ingredientAdded(ctrl.type)}
-        removed={() => props.ingredientRemoved(ctrl.type)}
-        key={ctrl.label}
-        label={ctrl.label}
-        disabled={props.disabled[ctrl.type]} />
-    ))}
-    <button type="button" disabled={!props.purchasable} className="btn btn-primary mt-2" onClick={props.ordered}>ORDER NOW</button>
-  </div>
+    <div className="BuildControls">
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+        {controls.map(ctrl => (
+            <BuildControl 
+                key={ctrl.label} 
+                label={ctrl.label}
+                added={() => props.ingredientAdded(ctrl.type)}
+                removed={() => props.ingredientRemoved(ctrl.type)}
+                disabled={props.disabled[ctrl.type]} />
+        ))}
+        <button 
+            className="btn btn-primary"
+            disabled={!props.purchasable}
+            onClick={props.ordered}>{props.isAuth ? 'ORDER NOW' : 'SIGN UP TO ORDER'}</button>
+    </div>
 );
 
 export default buildControls;
