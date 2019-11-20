@@ -1,0 +1,21 @@
+h1, p {
+  font-family: Lato;
+}
+body{
+  background-color: #cccccc !important;
+}
+.tab-style-1{
+    background: #9c78cd;
+}
+.tab-style-1 ul li .active,.tab-style-1 ul li a{
+    border-width: 0 !important;margin: 0; border-radius: 0
+}
+.tab-style-1 ul li{
+    margin: 0 !important;
+}
+.tab-style-1 ul li a{
+    color:#fff;
+}
+a{
+  cursor: pointer;
+}
