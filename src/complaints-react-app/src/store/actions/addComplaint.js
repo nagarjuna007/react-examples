@@ -6,6 +6,12 @@ export const addComplaintStart = () => {
     type: actionTypes.ADD_COMPLAINT
   };
 };
+export const addComplaintSuccess = message => {
+  return {
+    type: actionTypes.ADD_COMPLAINT_SUCCESS,
+    message: message
+  };
+};
 
 export const addComplaintAction = (
   complaintTitle,
@@ -19,10 +25,10 @@ export const addComplaintAction = (
       complaintlocation: complaintlocation,
       complaintDescription: complaintDescription
     };
-    let url =
-      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCR3ByaXb-AUYojWDRMK48HBWz92xuzC6M";
+    let url = "https://compliant-210b6.firebaseio.com/compliant.json";
     axios.post(url, complaintData).then(response => {
       console.log(response);
+      dispatch(addComplaintSuccess(response));
     });
   };
 };

@@ -5,14 +5,13 @@ import * as actions from "../../store/actions/index";
 
 const addComplaint = props => {
   const [addComplaintForm, setAddComplaintForm] = useState({
-    complaintTitle: '',
-    complaintlocation: '',
-    complaintDescription: '',
-    attachments: ''
+    complaintTitle: "",
+    complaintlocation: "",
+    complaintDescription: "",
+    attachments: ""
   });
 
   const submitHandler = event => {
-    debugger;
     event.preventDefault();
     props.addComplaintHandler(
       addComplaintForm.complaintTitle.value,
@@ -29,10 +28,14 @@ const addComplaint = props => {
     });
     setAddComplaintForm(updatedControls);
   };
-
+  let successMessage = null;
+  if (props.message) {
+    successMessage = <p>{props.message.statusText}</p>;
+  }
   return (
     <section>
       <h1>Add Complaint</h1>
+      <p> {successMessage}</p>
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label>Complaint Title</label>
@@ -41,9 +44,7 @@ const addComplaint = props => {
             className="form-control"
             key="addComplaintForm.complaintTitle"
             value={addComplaintForm.complaintTitle.value}
-            onChange={event =>
-              inputChangedHandler(event, addComplaintForm.complaintTitle)
-            }
+            onChange={event => inputChangedHandler(event, "complaintTitle")}
           />
         </div>
         <div className="form-group">
@@ -52,9 +53,7 @@ const addComplaint = props => {
             className="form-control"
             key="addComplaintForm.complaintlocation"
             value={addComplaintForm.complaintlocation.value}
-            onChange={event =>
-              inputChangedHandler(event, addComplaintForm.complaintlocation)
-            }
+            onChange={event => inputChangedHandler(event, "complaintlocation")}
           />
         </div>
         <div className="form-group">
@@ -64,7 +63,7 @@ const addComplaint = props => {
             key="addComplaintForm.complaintDescription"
             value={addComplaintForm.complaintDescription.value}
             onChange={event =>
-              inputChangedHandler(event, addComplaintForm.complaintDescription)
+              inputChangedHandler(event, "complaintDescription")
             }
           />
         </div>
@@ -74,9 +73,7 @@ const addComplaint = props => {
             type="file"
             key="addComplaintForm.attachments"
             value={addComplaintForm.attachments.value}
-            onChange={event =>
-              inputChangedHandler(event, addComplaintForm.attachments)
-            }
+            onChange={event => inputChangedHandler(event, "attachments")}
           />
         </div>
         <button type="submit" className="btn btn-primary">
@@ -88,7 +85,10 @@ const addComplaint = props => {
 };
 
 const mapStateToProps = state => {
-  return {};
+  debugger;
+  return {
+    message: state.addComplaint.message
+  };
 };
 
 const mapDispatchToProps = dispatch => {

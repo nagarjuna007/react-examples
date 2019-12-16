@@ -78,7 +78,7 @@ const auth = props => {
   }
   let errorMessage = null;
   if (props.error) {
-    errorMessage = <p>{props.error}</p>;
+    errorMessage = <p>{props.error.data.error.message}</p>;
   }
   return (
     <section className="login-block">
@@ -88,8 +88,8 @@ const auth = props => {
             <span className="logo">COMPLAINTS</span>
           </div>
           <div className="content p-3">
-            {authRedirect}
             {errorMessage}
+            {authRedirect}
             <form onSubmit={submitHandler}>
               {form}
               <Button btnType="btn btn-success" type="submit">
@@ -121,7 +121,8 @@ const auth = props => {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null,
-    authRedirectPath: state.auth.authRedirectPath    
+    authRedirectPath: state.auth.authRedirectPath,
+    error: state.auth.error
   };
 };
 

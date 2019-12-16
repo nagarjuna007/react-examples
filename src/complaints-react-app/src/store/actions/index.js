@@ -6,4 +6,8 @@ export {
   authFail,
   setAuthRedirectPath
 } from "./auth";
-export { addComplaintAction } from "./addComplaint";
+export {
+  addComplaintAction,
+  addComplaintStart,
+  addComplaintSuccess
+} from "./addComplaint";

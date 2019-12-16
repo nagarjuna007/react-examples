@@ -1,5 +1,12 @@
 import React, { Component, useEffect, Suspense } from "react";
-import { Link, Route, Switch, withRouter, Redirect } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Switch,
+  withRouter,
+  Redirect,
+  BrowserRouter as Router
+} from "react-router-dom";
 import { render } from "react-dom";
 import { connect } from "react-redux";
 import asyncComponent from "./hoc/asyncComponent";
@@ -32,7 +39,14 @@ const app = props => {
     );
   }
 
-  return <Suspense fallback={<p>Loading...</p>}> {routes}</Suspense>;
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      {" "}
+      <Router>
+        {routes}
+      </Router>
+    </Suspense>
+  );
 };
 const mapStateToProps = state => {
   return {
