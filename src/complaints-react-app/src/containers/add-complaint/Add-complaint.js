@@ -30,7 +30,11 @@ const addComplaint = props => {
   };
   let successMessage = null;
   if (props.message) {
-    successMessage = <p>{props.message.statusText}</p>;
+    if (props.message == "OK") {
+      successMessage = "Complaint Added Successfully";
+    } else {
+      successMessage = <p>{props.message}</p>;
+    }
   }
   return (
     <section>
@@ -85,9 +89,8 @@ const addComplaint = props => {
 };
 
 const mapStateToProps = state => {
-  debugger;
   return {
-    message: state.addComplaint.message
+    message: state.addComplaint.response
   };
 };
 

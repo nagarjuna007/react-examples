@@ -11,3 +11,4 @@ export {
   addComplaintStart,
   addComplaintSuccess
 } from "./addComplaint";
+export { getComplaints, getComplaintsList } from "./viewComplaint";

@@ -8,6 +8,7 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import authReducer from "./store/reducers/auth";
 import addComplaintReducer from "./store/reducers/addComplaint";
+import viewComplaintReducer from "./store/reducers/viewComplaint";
 import "./style.scss";
 
 const composeEnhancers =
@@ -22,7 +23,8 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  addComplaint: addComplaintReducer
+  addComplaint: addComplaintReducer,
+  viewComplaint: viewComplaintReducer
 });
 
 const store = createStore(

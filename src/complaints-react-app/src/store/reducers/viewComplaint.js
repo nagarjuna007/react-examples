@@ -4,23 +4,17 @@ import { updateObject } from "../../shared/utility";
 const initialState = {
   error: null,
   loading: false,
-  message: null,
-  response:null
+  response: []
 };
 
-const addComplaint = (state, action) => {
-  return updateObject(state, { error: action.response, loading: true });
-};
-const complaintSuccess = (state, action) => {
+const complaintsList = (state, action) => {
   return updateObject(state, { response: action.response, loading: false });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADD_COMPLAINT:
-      return addComplaint(state, action);
-    case actionTypes.ADD_COMPLAINT_SUCCESS:
-      return complaintSuccess(state, action);
+    case actionTypes.GET_COMPLAINTS:
+      return complaintsList(state, action);
     default:
       return state;
   }

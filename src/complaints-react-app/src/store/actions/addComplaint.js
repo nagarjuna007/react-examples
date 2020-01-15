@@ -6,10 +6,10 @@ export const addComplaintStart = () => {
     type: actionTypes.ADD_COMPLAINT
   };
 };
-export const addComplaintSuccess = message => {
+export const addComplaintSuccess = response => {
   return {
     type: actionTypes.ADD_COMPLAINT_SUCCESS,
-    message: message
+    response: response
   };
 };
 
@@ -26,9 +26,13 @@ export const addComplaintAction = (
       complaintDescription: complaintDescription
     };
     let url = "https://compliant-210b6.firebaseio.com/compliant.json";
-    axios.post(url, complaintData).then(response => {
-      console.log(response);
-      dispatch(addComplaintSuccess(response));
-    });
+    axios
+      .post(url, complaintData)
+      .then(response => {
+        dispatch(addComplaintSuccess(response.statusText));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
