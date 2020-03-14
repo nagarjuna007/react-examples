@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Oxanium:200,300,400,500,600,700,800&display=swap');
+// variables start
+$red-theme-first-color:#bc0000;
+$red-theme-second-color:#000000;
+$font-family-1:'Oxanium';
+// variables end
+body{
+  background-color:#bc0000;
+  font-family: $font-family-1;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  color:rgba(255,255,255,.8);
+}
+button{
+    background-color: transparent;
+    border-width: 0;
+    margin:0;
+    color:#fff;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    position: relative;
+    padding:0 20px;
+    span{
+      padding:0 3px;
+      background: #bc0000;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+    }
+    &::before{
+      content:" ";
+      background: #fff;
+      width: 100%;
+      height:2px;
+      position: absolute;
+      top:5px;
+      left:0;
+    }
+    &:hover{
+      color:#000;
+    }
+    &:focus{
+      outline:0;
+    }
+  }
+.form-theme-1{
+  
+  .custom-form-group{
+    label{
+      display: block;
+      padding: 0 0 3px 0;
+      margin: 0;
+      color: #fff;
+font-size: 12px;
+    }
+    .line-input{
+width: 100%;
+background-color: transparent;
+border-width: 0 0 1px 0;
+margin-bottom: 5px;
+color:#fff;
+border-color: #920101;
+padding-bottom: 2px;
+border-radius: 0;
+padding-left:0;
+&:hover{
+  box-shadow: none;
+  outline: 0;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+&:focus{
+  box-shadow: none;
+  outline: 0;
+   border-color: rgba(255, 255, 255, 0.7);
+}
+    }
+  }
+}
+h3{
+  font-size: 16px;
+  letter-spacing: 0.2rem;
+}
+.login-main-block{
+  position: fixed;
+  width: 100%;
+  height:100%;
+  margin:0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top:0;
+  bottom: 0;
+  z-index: 0;
+}
+.login-block{
+  max-width:200px;
+  margin:0 auto;
+}
+@mixin list-design{
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+.card-1{
+      max-width: 397px;
+    display: inline-block;
+    border: 1px solid #af0000;
+    border-radius: .25rem;
+    padding: 10px 12px 5px 12px;
+    margin-bottom: 10px;
+    background: #af0000;
+  ul{
+    @include list-design;
+    li{
+        display: inline-block;
+    padding-right: 30px;
+    padding-bottom: 7px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+      span{
+        font-size: 14px;
+         color: #fff;
+      }
+    }
+  }
+}
+.text-black{
+  color:#000;
+}
+// dynamic css code start
+
+// dynamic css code end
