@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
+import { Link } from "react-router-dom";
 
 const profile = props => {
   return (
@@ -15,7 +16,7 @@ const profile = props => {
         <span>ADD OFFER</span>
       </button>
       <button type="button" className="mr-3 mb-2">
-        <span>VIEW POSTED OFFER</span>
+        <span> <Link to={"/postedOffersList"}>view Created Resume</Link></span>
       </button>
     </div>
   );

@@ -4,6 +4,21 @@ import { updateObject } from "../shared/utility";
 import * as actions from "../store/actions/index";
 
 const auth = props => {
+  useEffect(() => {
+    if (props.isAuthenticated) {
+      console.log("useEffect");
+      props.onSetAuthRedirectPath();
+    }
+  }, []);
+
+  const [isSignup, setIsSignup] = useState(true);
+  const switchAuthModeHandler = () => {
+    setIsSignup(!isSignup);
+  };
+  const [authForm, setAuthForm] = useState({
+    userName: " ",
+    password: " "
+  });
   const inputChangedHandler = (event, controlName) => {
     const updatedControls = updateObject(authForm, {
       [controlName]: updateObject(authForm[controlName], {
@@ -12,14 +27,14 @@ const auth = props => {
     });
     setAuthForm(updatedControls);
   };
-  const [authForm, setAuthForm] = useState({
-    userName: " ",
-    password: " "
-  });
   const submitHandler = event => {
     event.preventDefault();
-    console.log(authForm.password.value);
+    props.onAuth(authForm.userName.value, authForm.password.value, isSignup);
   };
+  if (props.isAuthenticated) {
+    console.log("inside");
+    props.onSetAuthRedirectPath();
+  }
   return (
     <form onSubmit={submitHandler} className="form-theme-1 login-main-block">
       <div className="login-block">
@@ -27,12 +42,12 @@ const auth = props => {
         <div className="row">
           <div className="col-12">
             <div className="custom-form-group mb-3">
-              <label>User Name</label>
+              <label>E-Mail Address</label>
               <input
                 type="text"
                 className="line-input"
                 key="authForm.userName"
-                value={authForm.userName.value}
+                value={authForm.userName.value || ""}
                 onChange={event => inputChangedHandler(event, "userName")}
               />
             </div>
@@ -44,17 +59,20 @@ const auth = props => {
                 type="text"
                 className="line-input"
                 key="authForm.password"
-                value={authForm.password.value}
+                value={authForm.password.value || ""}
                 onChange={event => inputChangedHandler(event, "password")}
               />
             </div>
           </div>
           <div className="col-12 mt-1 text-center">
-            <small className="d-block mb-4 text-white">
-              No EXT Account . . <i>Click Here</i> to SIGNUP
+            <small
+              className="d-block mb-4 text-white cursor-pointer"
+              onClick={switchAuthModeHandler}
+            >
+              <i>Click Here</i> to switch {!isSignup ? "SIGNIN" : "SIGNUP"}
             </small>
             <button type="submit">
-              <span>SUBMIT</span>
+              <span>{isSignup ? "SIGNIN" : "SIGNUP"}</span>
             </button>
           </div>
         </div>
@@ -64,11 +82,19 @@ const auth = props => {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    onAuth: (email, password, isSignUP) => {
+      dispatch(actions.auth(email, password, isSignUP));
+    },
+    onSetAuthRedirectPath: () =>
+      dispatch(actions.setAuthRedirectPath("/profile"))
+  };
 };
 
 export default connect(

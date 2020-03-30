@@ -8,7 +8,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.scss";
 import App from "./app";
-import Reducer from "./store/reducers/addOffer";
+import authReducer from "./store/reducers/auth";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -16,12 +16,12 @@ const composeEnhancers =
     : null || compose;
 
 const rootReducer = combineReducers({
-  addOffer: Reducer
+  auth: authReducer
 });
 
 const store = createStore(
-  rootReducer
-  // composeEnhancers(applyMiddleware(thunk))
+  rootReducer,
+   composeEnhancers(applyMiddleware(thunk))
 );
 
 const app = (
