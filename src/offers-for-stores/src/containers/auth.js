@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { updateObject } from "../shared/utility";
 import * as actions from "../store/actions/index";
 
 const auth = props => {
   useEffect(() => {
     if (props.isAuthenticated) {
-      console.log("useEffect");
       props.onSetAuthRedirectPath();
     }
   }, []);
@@ -31,14 +31,16 @@ const auth = props => {
     event.preventDefault();
     props.onAuth(authForm.userName.value, authForm.password.value, isSignup);
   };
+
+  let authRedirect = null;
   if (props.isAuthenticated) {
-    console.log("inside");
-    props.onSetAuthRedirectPath();
+    authRedirect = <Redirect to={props.authRedirectPath} />;
   }
   return (
     <form onSubmit={submitHandler} className="form-theme-1 login-main-block">
       <div className="login-block">
-        <h3 className="mt-0 pt-0 text-white pb-3 text-center">LOGIN HERE</h3>
+      {authRedirect}
+        <h3 className="mt-0 pt-0 text-white pb-3 mb-3 text-center">LOGIN HERE</h3>
         <div className="row">
           <div className="col-12">
             <div className="custom-form-group mb-3">
@@ -71,7 +73,7 @@ const auth = props => {
             >
               <i>Click Here</i> to switch {!isSignup ? "SIGNIN" : "SIGNUP"}
             </small>
-            <button type="submit">
+            <button type="submit" className="button">
               <span>{isSignup ? "SIGNIN" : "SIGNUP"}</span>
             </button>
           </div>
@@ -83,7 +85,8 @@ const auth = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    authRedirectPath: state.auth.authRedirectPath
   };
 };
 
@@ -92,8 +95,7 @@ const mapDispatchToProps = dispatch => {
     onAuth: (email, password, isSignUP) => {
       dispatch(actions.auth(email, password, isSignUP));
     },
-    onSetAuthRedirectPath: () =>
-      dispatch(actions.setAuthRedirectPath("/profile"))
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/"))
   };
 };
 

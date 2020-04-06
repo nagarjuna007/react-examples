@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   loading: false,
   message: "no message",
-  authRedirectPath: "/"
+  authRedirectPath: "/",
+  email: ""
 };
 
 const authStart = (state, action) => {
@@ -21,7 +22,8 @@ const authSuccess = (state, action) => {
     error: null,
     loading: false,
     message: "Login success",
-    authRedirectPath: "/profile"
+    authRedirectPath: "/",
+    email: action.email
   });
 };
 

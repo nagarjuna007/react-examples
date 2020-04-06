@@ -29,6 +29,9 @@ const PostedOffersList = asyncComponent(() => {
 const Profile = asyncComponent(() => {
   return import("./containers/profile.js");
 });
+const EditProfile = asyncComponent(() => {
+  return import("./containers/editProfile.js");
+});
 
 const app = props => {
   let messageInfoValue = props.onMessages;
@@ -65,19 +68,25 @@ const app = props => {
           exact
           render={props => <AddOffer {...props} />}
         />
+        <Route
+          path="/editProfile"
+          exact
+          render={props => <EditProfile {...props} />}
+        />
         <Redirect to="/" />
       </Switch>
     );
   }
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <Header />
       {routes}
-      <Message messageinfo={messageInfoValue} />
+      
     </Suspense>
   );
 };
-
+// <Message messageinfo={messageInfoValue} />
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null,

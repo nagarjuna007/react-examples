@@ -10,10 +10,15 @@ import "./style.scss";
 import App from "./app";
 import authReducer from "./store/reducers/auth";
 
+// const composeEnhancers =
+//   process.env.NODE_ENV === "development"
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : null || compose;
+
 const composeEnhancers =
-  process.env.NODE_ENV === "development"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
+  process.env.NODE_ENV === window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : f => f;
 
 const rootReducer = combineReducers({
   auth: authReducer
@@ -21,7 +26,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-   composeEnhancers(applyMiddleware(thunk))
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 const app = (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+import { Link } from "react-router-dom";
 
 const postedoffersList = props => {
   return (
@@ -46,10 +47,10 @@ const postedoffersList = props => {
         </div>
       </div>
       <div className="card-2">CARD-2</div>
-      <div className="mt-3 text-center">
-        <button type="button">
-          <span>ADD NEW OFFER</span>
-        </button>
+      <div className="btn-center-block py-4 text-center w-100">
+        <Link className="btn btn-black" to="/addOffer">
+          create resume
+        </Link>
       </div>
     </div>
   );

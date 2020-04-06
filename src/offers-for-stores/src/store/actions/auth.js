@@ -27,17 +27,19 @@ export const auth = (email, password, isSignup) => {
         localStorage.setItem("token", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
+        localStorage.setItem("email", response.data.email);
         dispatch(
           authSuccess(
             response.data.localId,
             response.data.idToken,
             response.data.refreshToken,
-            response.data.expiresIn
+            response.data.expiresIn,
+            response.data.email
           )
         );
       })
       .catch(error => {
-        console.log(error);
+        coknsole.log(error);
         dispatch(authFail());
       });
   };
@@ -49,13 +51,20 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (localId, idToken, refreshToken, expiresIn) => {
+export const authSuccess = (
+  localId,
+  idToken,
+  refreshToken,
+  expiresIn,
+  email
+) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     localId: localId,
     idToken: idToken,
     refreshToken: refreshToken,
-    expiresIn: expiresIn
+    expiresIn: expiresIn,
+    email: email
   };
 };
 
@@ -71,6 +80,7 @@ export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("userId");
+  localStorage.removeItem("email");
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -87,7 +97,8 @@ export const authCheckState = () => {
         dispatch(logout());
       } else {
         const userId = localStorage.getItem("userId");
-        dispatch(authSuccess(token, userId));
+        const email = localStorage.getItem("email");
+        dispatch(authSuccess(token, userId,'','', email));
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000
@@ -106,9 +117,9 @@ export const checkAuthTimeout = expirationTime => {
   };
 };
 
-export const setAuthRedirectPath = (path) => {
-    return {
-        type: actionTypes.SET_AUTH_REDIRECT_PATH,
-        path: path
-    };
+export const setAuthRedirectPath = path => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
+  };
 };
