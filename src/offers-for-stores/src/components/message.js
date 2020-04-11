@@ -13,17 +13,16 @@ class Message extends Component {
       this.setState({
         class: "d-none"
       });
-    }, 5000);
+    }, 10000);
   }
   componentDidMount() {
     setTimeout(() => {
       this.setState({
         class: "d-none"
       });
-    }, 5000);
-
-    if (this.props.messageinfo == undefined) {
-     // console.log("test");
+    }, 10000);
+    if (this.props.messageinfo == undefined || this.props.messageinfo == '') {
+      console.log("test");
     } else {
       this.setState({
         class: "d-none"
@@ -39,7 +38,7 @@ class Message extends Component {
   render() {
     return (
       <div className={this.state.class}>
-        {this.props.messageinfo}{" "}
+        Message : {this.props.messageinfo}{" "}
         <span onClick={this.closeMessageHadler}>&times;</span>
       </div>
     );

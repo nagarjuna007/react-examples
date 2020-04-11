@@ -82,15 +82,15 @@ const app = props => {
     <Suspense fallback={<p>Loading...</p>}>
       <Header />
       {routes}
-      
+       <Message messageinfo={messageInfoValue} />
     </Suspense>
   );
 };
-// <Message messageinfo={messageInfoValue} />
+
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null,
-    onMessages: state.auth.message,
+    onMessages: state.globalMessage.message,
     reDirectPath: state.auth.authRedirectPath
   };
 };

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Message from "../components/message";
+import { connect } from "react-redux";
+import * as actions from "../store/actions/index";
 
 const initialState = {
   firstName: "",
@@ -24,7 +25,9 @@ const initialState = {
     projects: "",
     profileDescription: ""
   },
-  formError: ""
+  messages: {
+    formError: ""
+  }
 };
 
 const validateForm = (state, errors) => {
@@ -51,21 +54,22 @@ class EditProfile extends Component {
     const validEmailRegex = RegExp(
       /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     );
-    const nameRegex = RegExp(/^[a-z\d]{5,12}$/i);
-    const numExpRegex = RegExp(/^\d{1,2}$/i);
+    const nameRegex = RegExp(/^[a-z\d]{1,2}$/i);
+    const numExpRegex = RegExp(/\d+/i);
     const PhoneNumRegex = RegExp(/^\d{11}$/i);
     const textAreaRegex = RegExp(
       /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     );
+
     switch (nam) {
       case "firstName":
         if (val.length < 5) {
           errors.firstName = "Must be 5 chars long!";
-        } else if (val.length > 50) {
-          errors.firstName = "less than 50 chars shot!";
+        } else if (val.length > 30) {
+          errors.firstName = "less than 30 chars shot!";
         } else if (val.length < 1) {
           errors.firstName = "required..!";
-        } else if (!numberRegex.test(val)) {
+        } else if (nameRegex.test(val)) {
           errors.firstName = "Invalid Input";
         } else {
           errors.firstName = "";
@@ -78,12 +82,22 @@ class EditProfile extends Component {
         errors.resumeTitle = val.length < 5 ? "Must be 5 characters long!" : "";
         break;
       case "totalExperience":
-        errors.totalExperience =
-          val.length > 2 ? "Must be 2 characters long!" : "";
+        if (val.length > 2) {
+          errors.totalExperience = "Must be 2 characters long!";
+        } else if (!numExpRegex.test(val)) {
+          errors.totalExperience = "Invalid Input";
+        } else {
+          errors.totalExperience = "";
+        }
         break;
       case "releventExperence":
-        errors.releventExperence =
-          val.length > 2 ? "Must be 2 characters long!" : "";
+        if (val.length > 2) {
+          errors.releventExperence = "Must be 2 characters long!";
+        } else if (!numExpRegex.test(val)) {
+          errors.releventExperence = "Invalid Input";
+        } else {
+          errors.releventExperence = "";
+        }
         break;
       case "primarySkills":
         errors.primarySkills =
@@ -112,14 +126,46 @@ class EditProfile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // console.log(this.state);
+    this.props.onMessage("message");
     if (validateForm(this.state, this.state.errors)) {
+      let url = "https://compliant-210b6.firebaseio.com/profile.json";
       console.log("Valid Form");
-      console.log(this.state);
-      this.setState(initialState);
+      let submitData = [];
+      submitData.push({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        resumeTitle: this.state.resumeTitle,
+        totalExperience: this.state.totalExperience,
+        releventExperence: this.state.releventExperence,
+        primarySkills: this.state.primarySkills,
+        secondarySkills: this.state.secondarySkills,
+        preferedLocation: this.state.preferedLocation,
+        projects: this.state.projects,
+        profileDescription: this.state.profileDescription
+      });
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submitData })
+      };
+      fetch(url, requestOptions)
+        .then(response => {
+          console.log(response);
+          this.setState(initialState);
+          this.props.onMessage("Profile Details UPDATED successfully..");
+        })
+        .then(data => {
+          console.log(data);
+        });
     } else {
+      this.setState({
+        messages: {
+          ...this.state.messages,
+          formError: "Invalid SUBMIT Fill Inputs and submit"
+        }
+      });
+      this.props.onMessage("Invalid SUBMIT Fill Inputs and submit");
       console.log("Invalid Form");
-      this.setState({ formError: "Invalid SUBMIT Fill Inputs and submit" });
     }
   }
 
@@ -267,10 +313,24 @@ class EditProfile extends Component {
             </button>
           </div>
         </div>
-        <Message messageinfo={this.state.formError} />
       </form>
     );
   }
 }
 
-export default EditProfile;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onMessage: value => {
+      dispatch(actions.message(value));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditProfile);

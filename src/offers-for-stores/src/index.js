@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./style.scss";
 import App from "./app";
 import authReducer from "./store/reducers/auth";
+import messageReducer from "./store/reducers/message";
 
 // const composeEnhancers =
 //   process.env.NODE_ENV === "development"
@@ -21,7 +22,8 @@ const composeEnhancers =
     : f => f;
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  globalMessage: messageReducer
 });
 
 const store = createStore(

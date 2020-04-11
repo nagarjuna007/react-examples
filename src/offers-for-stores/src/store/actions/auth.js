@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import * as actions from "./index";
 
 export const auth = (email, password, isSignup) => {
   return dispatch => {
@@ -28,6 +29,7 @@ export const auth = (email, password, isSignup) => {
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
         localStorage.setItem("email", response.data.email);
+        dispatch(actions.message("Login Success.."));
         dispatch(
           authSuccess(
             response.data.localId,
@@ -77,6 +79,13 @@ export const authFail = error => {
 };
 
 export const logout = () => {
+  return dispatch => {
+    dispatch(actions.message("Successfully Logout.."));
+    dispatch(logoutFull());
+  };
+};
+
+export const logoutFull = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("userId");
@@ -98,7 +107,7 @@ export const authCheckState = () => {
       } else {
         const userId = localStorage.getItem("userId");
         const email = localStorage.getItem("email");
-        dispatch(authSuccess(token, userId,'','', email));
+        dispatch(authSuccess(token, userId, "", "", email));
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000

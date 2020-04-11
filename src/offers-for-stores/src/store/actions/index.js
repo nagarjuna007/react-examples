@@ -6,3 +6,4 @@ export {
   checkAuthTimeout,
   setAuthRedirectPath
 } from "./auth";
+export { message } from "./message";
