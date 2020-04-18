@@ -27,7 +27,8 @@ const initialState = {
   },
   messages: {
     formError: ""
-  }
+  },
+  id: "01"
 };
 
 const validateForm = (state, errors) => {
@@ -43,6 +44,22 @@ class EditProfile extends Component {
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+   // console.log(this.props.onEditProfile);
+    this.setState({
+      firstName: this.props.onEditProfile.data.firstName,
+      lastName: this.props.onEditProfile.data.lastName,
+      resumeTitle: this.props.onEditProfile.data.resumeTitle,
+      totalExperience: this.props.onEditProfile.data.totalExperience,
+      releventExperence: this.props.onEditProfile.data.releventExperence,
+      primarySkills: this.props.onEditProfile.data.primarySkills,
+      secondarySkills: this.props.onEditProfile.data.secondarySkills,
+      preferedLocation: this.props.onEditProfile.data.preferedLocation,
+      projects: this.props.onEditProfile.data.projects,
+      profileDescription: this.props.onEditProfile.data.profileDescription,
+      id: this.props.onEditProfile.data.id
+    });
   }
 
   handleChange(event) {
@@ -130,8 +147,8 @@ class EditProfile extends Component {
     if (validateForm(this.state, this.state.errors)) {
       let url = "https://compliant-210b6.firebaseio.com/profile.json";
       console.log("Valid Form");
-      let submitData = [];
-      submitData.push({
+      let submitData = {};
+      submitData = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         resumeTitle: this.state.resumeTitle,
@@ -142,7 +159,8 @@ class EditProfile extends Component {
         preferedLocation: this.state.preferedLocation,
         projects: this.state.projects,
         profileDescription: this.state.profileDescription
-      });
+      };
+      //console.log(submitData);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -151,11 +169,11 @@ class EditProfile extends Component {
       fetch(url, requestOptions)
         .then(response => {
           console.log(response);
-          this.setState(initialState);
+          // this.setState(initialState);
           this.props.onMessage("Profile Details UPDATED successfully..");
         })
-        .then(data => {
-          console.log(data);
+        .catch(error => {
+          console.log(error);
         });
     } else {
       this.setState({
@@ -308,7 +326,7 @@ class EditProfile extends Component {
             </div>
           </div>
           <div className="col-12 mt-2">
-            <button type="submit" className="mr-2 mb-3 btn btn-black">
+            <button type="button" className="mr-2 mb-3 btn btn-black">
               <span>save</span>
             </button>
           </div>
@@ -319,7 +337,9 @@ class EditProfile extends Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    onEditProfile: state.editProfile
+  };
 };
 
 const mapDispatchToProps = dispatch => {

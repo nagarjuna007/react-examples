@@ -110,21 +110,22 @@ h3{
   margin:0;
 }
 .card-1{
-      max-width: 397px;
+      max-width: 365px;
     display: inline-block;
     border: 1px solid #af0000;
     border-radius: .25rem;
     padding: 10px 12px 5px 12px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     background: #af0000;
   ul{
     @include list-design;
     li{
-        display: inline-block;
+         display: inline-block;
     padding-right: 30px;
-    padding-bottom: 7px;
+    padding-bottom: 10px;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255,255,255,0.7);
+    line-height: 18px;
       span{
         font-size: 14px;
          color: #fff;

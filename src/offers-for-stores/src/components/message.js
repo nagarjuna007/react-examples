@@ -22,7 +22,7 @@ class Message extends Component {
       });
     }, 10000);
     if (this.props.messageinfo == undefined || this.props.messageinfo == '') {
-      console.log("test");
+     // console.log("test");
     } else {
       this.setState({
         class: "d-none"

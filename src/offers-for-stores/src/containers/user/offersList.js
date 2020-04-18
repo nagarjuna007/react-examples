@@ -17,42 +17,35 @@ const offersList = props => {
   return (
     <div className="container mt-3">
       <div className="card-1">
-        <h3 className="mt-0 pt-0 text-white">CARD-1</h3>
+        <h3 className="mt-0 pt-0 text-white">RESUME - 1</h3>
+        <p>Seems UI Developer with 5 years experience</p>
         <ul>
           <li>
-            Store Name - <span>asdas</span>
+            FullName <span className="d-block">Nagarjuna Tamarada</span>
           </li>
           <li>
-            Store Country- <span>asdas</span>
+            Total Exp <span className="d-block">5.5</span>
           </li>
           <li>
-            Store City- <span>asdas</span>
+            Rel Exp <span className="d-block">2.5</span>
           </li>
           <li>
-            Store Location- <span>asdas</span>
+            Primary skills <span className="d-block">Angular React</span>
           </li>
           <li>
-            Offer (%) - <span>asdas</span>
+            Secondary skills <span className="d-block">HTML CSS JS</span>
           </li>
           <li>
-            Buy something - <span className="pr-2">2</span> Get something -{" "}
-            <span>4</span>
+            Prefered location <span className="d-block">Hyderabad</span>
           </li>
           <li>
-            Offer Title - <span>asdas</span>
+            Projects <span className="d-block">Hyderabad</span>
           </li>
           <li>
-            End Date - <span>asdas</span>
-          </li>
-          <li>
-            Category - <span>asdas</span>
-          </li>
-          <li>
-            Online Site Link - <span>asdas</span>
+            Profile description <span className="d-block">Hyderabad</span>
           </li>
         </ul>
       </div>
-      <div className="card-2">CARD-2 </div>
       {createResumeBtnBlock}
     </div>
   );

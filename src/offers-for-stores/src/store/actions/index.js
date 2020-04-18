@@ -7,3 +7,4 @@ export {
   setAuthRedirectPath
 } from "./auth";
 export { message } from "./message";
+export { profileDetails } from "./profile";

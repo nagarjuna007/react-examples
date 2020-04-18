@@ -10,6 +10,8 @@ import "./style.scss";
 import App from "./app";
 import authReducer from "./store/reducers/auth";
 import messageReducer from "./store/reducers/message";
+import editProfileReducer from "./store/reducers/editProfile";
+import profileInfoReducer from "./store/reducers/profileDetails";
 
 // const composeEnhancers =
 //   process.env.NODE_ENV === "development"
@@ -23,7 +25,9 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  globalMessage: messageReducer
+  globalMessage: messageReducer,
+  profileInfo: profileInfoReducer,
+  editProfile: editProfileReducer
 });
 
 const store = createStore(
