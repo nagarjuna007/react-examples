@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.19.2",
     "css-loader": "1.0.1",
     "eject": "0.0.4",
     "enzyme": "3.10.0",
