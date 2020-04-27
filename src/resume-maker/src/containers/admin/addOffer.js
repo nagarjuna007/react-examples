@@ -8,7 +8,7 @@ const initialState = {
     lastName: "",
     resumeTitle: "",
     totalExperience: "",
-    releventExperience: "",
+    releventExperence: "",
     primarySkills: "",
     secondarySkills: "",
     preferedLocation: "",
@@ -20,6 +20,7 @@ const initialState = {
 
 class AddOffer extends Component {
   constructor(props) {
+    console.log("constructor");
     super(props);
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
@@ -41,37 +42,60 @@ class AddOffer extends Component {
   handleSubmit(event) {
     event.preventDefault();
     // console.log(this.state);
-    // this.setState({
-    //   resumeDetails: {
-    //     ...this.state.resumeDetails,
-    //     firstName: this.props.onEditProfile.data.firstName,
-    //     lastName: this.props.onEditProfile.data.lastName,
-    //     resumeTitle: this.props.onEditProfile.data.resumeTitle,
-    //     totalExperience: this.props.onEditProfile.data.totalExperience,
-    //     releventExperience: this.props.onEditProfile.data.releventExperence,
-    //     primarySkills: this.props.onEditProfile.data.primarySkills,
-    //     secondarySkills: this.props.onEditProfile.data.secondarySkills,
-    //     preferedLocation: this.props.onEditProfile.data.preferedLocation,
-    //     projects: this.props.onEditProfile.data.projects,
-    //     profileDescription: this.props.onEditProfile.data.profileDescription
-    //   }
-    // });
+    this.setState({
+      resumeDetails: {
+        ...this.state.resumeDetails,
+        firstName: this.props.onEditProfile.data.firstName,
+        lastName: this.props.onEditProfile.data.lastName,
+        resumeTitle: this.props.onEditProfile.data.resumeTitle,
+        totalExperience: this.props.onEditProfile.data.totalExperience,
+        releventExperence: this.props.onEditProfile.data.releventExperence,
+        primarySkills: this.props.onEditProfile.data.primarySkills,
+        secondarySkills: this.props.onEditProfile.data.secondarySkills,
+        preferedLocation: this.props.onEditProfile.data.preferedLocation,
+        projects: this.props.onEditProfile.data.projects,
+        profileDescription: this.props.onEditProfile.data.profileDescription
+      }
+    });
   }
-  useMyProfileDetails() {
-    // console.log(this.state);
-    setTimeout(() => {
-      console.log(this.props.onEditProfile);
-    }, 1000);
+  componentWillMount() {
+    console.log("componentWillMount");
   }
-
   componentDidMount() {
     this.props.onProfileDetails();
-    setTimeout(() => {
-      console.log(this.props.onEditProfile);
-    }, 1000);
+    // console.log(this.props.onEditProfile);
+    console.log("componentDidMount");
+  }
+
+  componentWillUpdate() {
+    console.log("componentWillUpdate");
+  }
+  componentDidUpdate() {
+    console.log("componentDidUpdate");
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate");
+    return true;
+  }
+
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log("getDerivedStateFromProps");
+  //   return null;
+  // }
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log("getSnapshotBeforeUpdate");
+  //   return null;
+  // }
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
   }
 
   render() {
+    console.log("render");
     return (
       <section>
         <form
@@ -134,8 +158,8 @@ class AddOffer extends Component {
                 <input
                   type="text"
                   className="line-input"
-                  name="releventExperience"
-                  value={this.state.resumeDetails.releventExperience}
+                  name="releventExperence"
+                  value={this.state.resumeDetails.releventExperence}
                   onChange={this.handleChange}
                 />
               </div>
@@ -202,13 +226,6 @@ class AddOffer extends Component {
             </div>
             <div className="col-12 mt-2">
               <button type="submit" className="mr-2 mb-3 btn btn-black">
-                <span>create resume</span>
-              </button>
-              <button
-                type="button"
-                onClick={this.useMyProfileDetails}
-                className="btn btn-black mb-3"
-              >
                 <span>use my profile Details</span>
               </button>
             </div>
@@ -218,7 +235,7 @@ class AddOffer extends Component {
         <div className="container pb-4">
           <div className="card-1  mt-1 mr-1">
             <h3 className="mt-0 pt-0 text-white">RESUME - 1</h3>
-            <p>Seems UI Developer with 5 years experience</p>
+            <p>{this.state.resumeDetails.resumeTitle}</p>
             <ul>
               <li>
                 FullName{" "}
